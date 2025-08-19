@@ -1,0 +1,60 @@
+﻿@page "/news"
+@attribute [StreamRendering]
+@attribute [ExcludeFromInteractiveRouting]
+
+<h1>Last News</h1>
+
+@if (news == null)
+{
+    <p>Loading news...</p>
+}
+else
+{
+    <div class="news-container">
+        @foreach (var item in news)
+        {
+            <article class="news-item">
+                <h3>@item.Titulo</h3>
+                <p class="date">@item.DataPublicacao.ToShortDateString()</p>
+                <p>@item.Resumo</p>
+            </article>
+        }
+    </div>
+}
+
+@code {
+    private List<Notice>? news;
+    public class Notice
+    {
+        public string Titulo { get; set; }
+        public DateTime DataPublicacao { get; set; }
+        public string Resumo { get; set; }
+
+        public Notice(string titulo, DateTime data, string resumo)
+        {
+            Titulo = titulo;
+            DataPublicacao = data;
+            Resumo = resumo;
+        }
+    }
+
+    private List<Notice> GetNews()
+    {
+        return new List<Notice>
+        {
+            new Notice("Blazor 9.0 released", DateTime.Now.AddDays(-190),
+                "Microsoft announced the release of Blazor 9.0 with new rendering features."),
+            new Notice("DotNet 9 preview", DateTime.Now.AddDays(-420),
+                "DotNet 9 preview is available for testing with performance improvements."),
+            new Notice("New templates", DateTime.Now.AddDays(-300),
+                "New templates for Blazor Web App simplify development."),
+        };
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Simula chamada assíncrona a uma API
+        await Task.Delay(1000);
+        news = GetNews();
+    }
+}
