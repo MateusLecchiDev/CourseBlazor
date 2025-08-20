@@ -1,0 +1,48 @@
+﻿@page "/tasks-summary"
+@rendermode InteractiveWebAssembly
+
+<h4>Tasks Summary</h4>
+<h5>
+    Usando <b>rendermode InteractiveWebAssembly</b>
+</h5>
+<br />
+
+@if (tasks == null)
+{
+    <p class="text-muted">Loading data...</p>
+}
+else if (!tasks.Any())
+{
+    <p class="text-muted">No task registered</p>
+}
+else
+{
+    <ul class="list-group">
+        <li class="list-group-item">
+            <strong>Tasks Total:</strong> @tasks.Count
+        </li>
+        <li class="list-group-item">
+            <strong>Completed:</strong> @tasks.Count(t  => t.Completed)
+        </li>
+        <li class="list-group-item">
+            <strong>Pending:</strong> @tasks.Count(t => !t.Completed)
+        </li>
+        <li class="list-group-item">
+            <strong>Date of First Task:</strong>
+            @tasks.Min(t => t.DateCriation).ToString("dd/MM/yyyy")
+        </li>
+        <li class="list-group-item">
+            <strong>Date of Last Task:</strong>
+            @tasks.Max(t => t.DateCriation).ToString("dd/MM/yyyy")
+        </li>
+    </ul>
+}
+
+@code {
+    private List<TaskCourse>? tasks;
+
+    protected override void OnInitialized()
+    {
+        tasks = TaskData.GetTasks();
+    }
+}

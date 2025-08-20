@@ -1,0 +1,85 @@
+﻿@page "/tasks"
+@page "/tasks/{status}"
+@page "/list"
+
+@rendermode InteractiveServer
+
+<h1>List of Tasks</h1>
+<h5>
+    Usando <b>rendermode InteractiveServer</b>
+</h5>
+<br />
+
+@if (tasks == null)
+{
+    <img src="https://media.giphy.com/media/qHOf8vC1ppFQs/giphy.gif" width="100" class="icon-loading" />
+    <p>Loading tasks...</p>
+}
+else if (!tasks.Any())
+{
+    <img src="icons/error-404.png" class="icon-loading" />
+    <p>Yet don't exist tasks</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Action</th>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Completed</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in tasks)
+            {
+                <tr>
+                    <td>
+                        <button class="btn btn-danger btn-sm" @onclick="() => RemoveTask(item.ID)"><i class="bi bi-trash"></i>Remove</button>
+                    </td>
+                    <td>@item.DateCriation.ToShortDateString()</td>
+                    <td>@item.Description</td>
+                    <td>
+                        <input type="checkbox" checked="@item.Completed" @onchange="() => ToggleConclusion(item.ID)" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<TaskCourse>? tasks;
+
+    [Parameter]
+    public string? Status { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(2000);
+        tasks = TaskData.GetTasks();
+
+        tasks = Status?.ToLower() switch
+        {
+            "completed" => tasks.Where(t => t.Completed).ToList(),
+            "pending" => tasks.Where(t => !t.Completed).ToList(),
+            _ => tasks
+        };
+    }
+
+    private void RemoveTask(Guid id)
+    {
+        tasks?.RemoveAll(t => t.ID == id);
+    }
+
+    private void ToggleConclusion(Guid id)
+    {
+        var task = tasks?.FirstOrDefault(t => t.ID == id);
+
+        if (task != null)
+        {
+            task.Completed = !task.Completed;
+        }
+    }
+}
