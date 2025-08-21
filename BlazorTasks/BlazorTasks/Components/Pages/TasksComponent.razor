@@ -4,6 +4,11 @@
 
 @rendermode InteractiveServer
 
+<button class="btn btn-link mb-3" @onclick="GoToSummary">
+    <i class="bi bi-bar-chart-line"></i>
+    See Summary
+</button>
+
 <h1>List of Tasks</h1>
 <h5>
     Usando <b>rendermode InteractiveServer</b>
@@ -55,6 +60,9 @@ else
     [Parameter]
     public string? Status { get; set; }
 
+    [Inject]
+    private NavigationManager Nav { get; set; } = default!;
+
     protected override async Task OnInitializedAsync()
     {
         await Task.Delay(2000);
@@ -63,7 +71,7 @@ else
         tasks = Status?.ToLower() switch
         {
             "completed" => tasks.Where(t => t.Completed).ToList(),
-            "pending" => tasks.Where(t => !t.Completed).ToList(),
+            "pendings" => tasks.Where(t => !t.Completed).ToList(),
             _ => tasks
         };
     }
@@ -81,5 +89,10 @@ else
         {
             task.Completed = !task.Completed;
         }
+    }
+
+    private void GoToSummary()
+    {
+        Nav.NavigateTo("/tasks-summary");
     }
 }
