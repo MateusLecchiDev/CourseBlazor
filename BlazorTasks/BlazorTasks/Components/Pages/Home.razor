@@ -2,6 +2,31 @@
 
 <PageTitle>Home</PageTitle>
 
+<div class="alert alert-info mt-4">
+    <h4>Informations of Rendering</h4>
+    <ul>
+        <li>
+            <strong>Where am I executing now?</strong>
+            <span>No <strong>@RendererInfo.Name</strong>.</span>
+        </li>
+        <li>
+            <strong>Am I interactive in this moment?</strong>
+            <span>@(RendererInfo.IsInteractive ? "Yes" : "No, i'm in pre-rendering or i'm static.")</span>
+        </li>
+        <li>
+            <strong>Assigned rendering mode:</strong>
+            @if (AssignedRenderMode is not null)
+            {
+                <span>The mode <strong>@AssignedRenderMode.GetType().Name</strong>was assigned.</span>
+            }
+            else
+            {
+                <span>No mode interactive was assigned (Static).</span>
+            }
+        </li>
+    </ul>
+</div>
+
 <h1>Hello, world!</h1>
 
 <h2>Rendering: Static Server Rendering (SSR) </h2>

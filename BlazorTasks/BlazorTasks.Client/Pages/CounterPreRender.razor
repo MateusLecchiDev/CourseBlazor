@@ -1,0 +1,55 @@
+﻿@page "/counter-pre-render"
+@rendermode InteractiveAuto
+
+<PageTitle>Counter Pre Render</PageTitle>
+
+<h1>Demonstrating Pre-rendering Detection</h1>
+
+<div class="alert alert-warning mt-4">
+    <h4><i class="bi bi-lightbulb"></i> Logic of Detection </h4>
+    <p>
+        We use <code>RendererInfo.IsInteractive</code> to verify the state current.
+        When the value is <strong>false</strong>, the component is being pre-rendered on the server.
+        When is <strong>true</strong>, it is already interactive.
+    </p>
+</div>
+
+@*
+  AQUI ESTÁ A LÓGICA DA SUA IMAGEM EM AÇÃO!
+*@
+@if (RendererInfo.IsInteractive == false)
+{
+    <div class="alert alert-info">
+        <p class="mb-0">
+            <i class="bi bi-server"></i>
+            <strong>State current: PRE-RENDERING.</strong>
+            The component is being rendering on the server. The button below is disabled.
+        </p>
+    </div>
+}
+else
+{
+    <div class="alert alert-success">
+        <p class="mb-0">
+            <i class="bi bi-mouse"></i>
+            <strong>State current: INTERACTIVE.</strong>
+            The component now is alive in the <strong>@RendererInfo.Name</strong> and can answer to events.
+        </p>
+    </div>
+}
+
+<p role="status">Count current: @currentCount</p>
+
+@* O botão é desabilitado dinamicamente durante a pré-renderização *@
+<button class="btn btn-primary" @onclick="IncrementCount" disabled="@(!RendererInfo.IsInteractive)">
+    Click here
+</button>
+
+@code {
+    private int currentCount = 0;
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+}

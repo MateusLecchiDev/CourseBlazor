@@ -1,40 +1,19 @@
-﻿@page "/weather"
+﻿@page "/weather-dupla-execucao"
 @attribute [StreamRendering]
+@rendermode InteractiveServer
 
-<PageTitle>Weather</PageTitle>
+<PageTitle>Weather - Dupla Execução</PageTitle>
 
-<div class="alert alert-primary mt-4 p-3" style="border-left: 5px solid #0d6efd;">
-    
-    <h5 class="alert-heading fw-bold">Diagnostic of Rendering</h5>
-    <hr />
+<button disabled="@(!InteratividadeDisponivel)">To Update</button>
 
-    <dl class="row">
-        <dt class="col-sm-4">Place of Execution:</dt>
-        <dd class="col-md-8"><code>@RendererInfo.Name</code></dd>
-
-        <dt class="col-sm-4">Is Interactive (now):</dt>
-        <dd class="col-md-8"><code>@RendererInfo.IsInteractive</code></dd>
-
-        <dt class="col-sm-4">Assigned Mode:</dt>
-        <dd class="col-md-8"><code>@(AssignedRenderMode?.ToString() ?? "None (Static/SSR)")</code></dd>
-    </dl>
-
-</div>
-
-<button disabled="@(!InteractivityAvailable)">Update</button>
-
-@if (!InteractivityAvailable)
+@if (!InteratividadeDisponivel)
 {
     <p style="color:red;">Interactivity yet not available.</p>
 }
-
 <h5>
     Usando <b>attribute [StreamRendering]</b>
 </h5>
 <br />
-<h1>Weather</h1>
-<br />
-
 <p>This component demonstrates showing data.</p>
 
 @if (forecasts == null)
@@ -69,11 +48,17 @@ else
 @code {
     private WeatherForecast[]? forecasts;
 
-    private bool InteractivityAvailable => RendererInfo?.IsInteractive == true;
+    private bool InteratividadeDisponivel => RendererInfo?.IsInteractive == true;
+
+    private static int initializedCallCount = 0;
 
     protected override async Task OnInitializedAsync()
     {
-        // Simulate asynchronous loading to demonstrate streaming rendering
+        initializedCallCount++;
+        Console.WriteLine($"OnInitializedAsync chamado. Contagem: {initializedCallCount} ");
+        Console.WriteLine($"É interativo: {InteratividadeDisponivel}. Renderizador: {RendererInfo?.Name}");
+
+        // simula carregamento assincrono
         await Task.Delay(500);
 
         var startDate = DateOnly.FromDateTime(DateTime.Now);
