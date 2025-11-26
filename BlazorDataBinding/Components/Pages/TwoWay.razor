@@ -1,0 +1,13 @@
+﻿@page "/two-way"
+@rendermode InteractiveServer
+
+<h3>Exemplo Two-Way DataBinding</h3>
+
+<p><b>O nome será alterado quando o input perder o foco</b></p>
+
+<input @bind="nome" />
+<p style="font-size: 40px;">Nome digitado: @nome</p>
+
+@code {
+    private string nome = "Maria";
+}
