@@ -1,0 +1,54 @@
+﻿@if (ListTasks == null)
+{
+    <Warning>
+        <Content1> <img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" /></Content1>
+        <Content2>
+            <span style="color: blue">
+                <h3>Carregando Tarefas</h3>
+            </span>
+        </Content2>
+    </Warning>
+}
+else if (!ListTasks.Any())
+{
+    <Warning>
+        <Content1><img src="images/doubt.png" /></Content1>
+        <Content2>
+            <span style="color: red">
+                <h3>Ainda não cadastrou tarefas !!!</h3>
+            </span>
+        </Content2>
+    </Warning>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Ação</th>
+                <th>Data</th>
+                <th>Descrição</th>
+                <th>Concluida</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tarefaItem in ListTasks)
+            {
+                <IndividualTask ItemTask="tarefaItem" OnRemoveTask="OnHandleRemoverTarefa" />
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    [Parameter, EditorRequired]
+    public List<TaskComponent> ListTasks { get; set; } = new();
+
+    [Parameter]
+    public EventCallback<Guid> OnRemoveTask { get; set; }
+
+    private async Task OnHandleRemoverTarefa(Guid id)
+    {
+        await OnRemoveTask.InvokeAsync(id);
+    }
+}

@@ -1,0 +1,24 @@
+﻿@page "/generic-list"
+@rendermode InteractiveServer
+
+<GenericList TItem="TaskComponent" Items="tasks">
+    <ItemTemplate Context="tarefa">
+        <div>
+            <strong>@tarefa.Description</strong> - @(tarefa.Completed ? "✅" : "❌")
+            <br />
+            <small>Criada em: @tarefa.DateCreated.ToShortDateString()</small>
+        </div>
+    </ItemTemplate>
+</GenericList>
+
+@code {
+    List<TaskComponent> tasks = new List<TaskComponent>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        // obtém a url base
+        var url = navManager.BaseUri + "Data/Tasks.json";
+        var result = await http.GetFromJsonAsync<List<TaskComponent>>(url);
+        tasks = result ?? new List<TaskComponent>();
+    }
+}

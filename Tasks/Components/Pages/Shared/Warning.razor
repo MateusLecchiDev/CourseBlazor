@@ -1,9 +1,10 @@
-﻿<div class="alert alert-warning mt-4 d-flex align-items-center" role="alert">
-    <i class="bi bi-exclamation-triangle-fill me-2"></i>
-    <strong>@Mensagem</strong>
-</div>
+﻿<div>@Content1</div>
+<div>@Content2</div>
 
 @code {
     [Parameter]
-    public string Mensagem { get; set; } = string.Empty;
+    public RenderFragment? Content1 { get; set; }
+
+    [Parameter]
+    public RenderFragment? Content2 { get; set; }
 }

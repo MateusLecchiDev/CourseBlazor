@@ -1,56 +1,20 @@
 ﻿@page "/"
 @rendermode InteractiveServer
-@inject HttpClient http
-@inject NavigationManager navManager
 
 <PageTitle>Home</PageTitle>
-<Warning Mensagem="Lista de Tarefas" />
 
-@if (tasks == null)
-{
-    <img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" />
-    <Warning Mensagem="Carregando..." />
-}
-else if (!tasks.Any())
-{
-    <Warning Mensagem="Ainda não existem tarefas..." />
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Ação</th>
-                <th>Data</th>
-                <th>Descrição</th>
-                <th>Concluida</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in tasks)
-            {
-                <tr>
-                    <td>
-                        <button @onclick="@(() => RemoveTask(item.ID))">
-                            <i class="bi bi-trash"></i>
-                        </button>
-                    </td>
-                    <td>@item.DataCriacao</td>
-                    <td>@item.Descricao</td>
-                    <td><input type="checkbox" @bind="item.Concluida" />@item.Concluida</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+<Panel>
+    <Warning><Content1>Lista de Tarefas</Content1></Warning>
+    <ListTaskComponent ListTasks="tasks" OnRemoveTask="RemoveTask" />
+</Panel>
 
-    @if (tasks != null)
-    {
-        <div class="form-group">
-            <label>Tarefa</label>
-            <input type="text" placeholder="Informe a tarefa" @bind="newTask"/>
-            <button class="btn btn-primary" @onclick="AddNewTask">Registrar Tarefa</button>
-        </div>
-    }
+@if (tasks != null)
+{
+    <Panel>
+        <label>Tarefa</label>
+        <input type="text" placeholder="Informe a tarefa" @bind="newTask" />
+        <button class="btn btn-primary" @onclick="AddNewTask">RegisterTask</button>
+    </Panel>
 }
 
 @code {
@@ -58,6 +22,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
+        // obtem a url base
         var url = navManager.BaseUri + "Data/Tasks.json";
         var result = await http.GetFromJsonAsync<List<TaskComponent>>(url);
         tasks = result ?? new List<TaskComponent>();
@@ -71,8 +36,8 @@ else
         {
             tasks.Add(new TaskComponent
             {
-                DataCriacao = DateTime.Now,
-                Descricao = newTask,
+                DateCreated = DateTime.Now,
+                Description = newTask,
                 ID = Guid.NewGuid()
             });
             newTask = "";

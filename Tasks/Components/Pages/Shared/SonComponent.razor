@@ -1,0 +1,14 @@
+﻿<h1 style="@StyleReceived">Componente filho com estilo do pai</h1>
+<h2> Data recebida do pai : @DateReceived.ToShortDateString()</h2>
+<p style="@FontReceived"> Texto com fonte recebida do pai</p>
+
+@code {
+    [CascadingParameter(Name ="Style")]
+    public string? StyleReceived { get; set; }
+
+    [CascadingParameter]
+    public DateTime DateReceived { get; set; }
+
+    [CascadingParameter(Name ="Font")]
+    public string? FontReceived { get; set; }
+}

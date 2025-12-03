@@ -1,0 +1,46 @@
+﻿@page "/dynamic-cascade-example"
+@rendermode InteractiveServer
+
+<h3>Example of Dynamic Cascade</h3>
+
+@*
+    Se o valor não mudar durante a vida útil do componente, pode ser usado a propriedade IsFixed="true" para otimizar a performance, 
+    indicando ao Blazor que não precisa monitorar alterãções.
+*@
+
+<CascadingValue Value="@informationsTheme">
+    <div style="border: 2px solid black; padding: 15px;">
+        <h2>Eu sou o componente Pai</h2>
+        <button @onclick="PutTheme">Trocar Tema</button>
+        <p>Tema atual no pai: <strong>@informationsTheme.Name</strong></p>
+
+        <ControlPanel />
+    </div>
+</CascadingValue>
+
+@code {
+    private InfoTheme informationsTheme = new InfoTheme
+        {
+            Name = "dark", BackgroundColor = "#333", TextColor = "#FFF"
+        };
+
+    private void PutTheme()
+    {
+        if (informationsTheme.Name == "dark")
+        {
+            informationsTheme = new InfoTheme { Name = "light", BackgroundColor = "#EEE", TextColor = "#000" };
+        }
+        else
+        {
+            informationsTheme = new InfoTheme { Name = "dark", BackgroundColor = "#333", TextColor = "#FFF" };
+        }
+        // A mudança no objeto informationsTheme fará com que o Blazor notifique os componentes filhos que consomem este valor.
+    }
+
+    public class InfoTheme
+    {
+        public string Name { get; set; } = "light";
+        public string BackgroundColor { get; set; } = "#EEE";
+        public string TextColor { get; set; } = "#000";
+    }
+}

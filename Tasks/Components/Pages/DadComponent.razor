@@ -1,0 +1,18 @@
+﻿@page "/style-cascading"
+
+<h3 style="@Style">Componente Pai</h3>
+<CascadingValue Value="@Style" Name="Style">
+    <CascadingValue Value="@Date">
+        <CascadingValue Value="@Font" Name="Font">
+            <SonComponent />
+        </CascadingValue>
+    </CascadingValue>
+</CascadingValue>
+
+@code {
+    public string Style { get; set; } = "color:blue;font-weight: bold";
+
+    public DateTime Date { get; set; } = DateTime.Now;
+
+    public string Font { get; set; } = "font-family:Courier New;font-size: 26px;";
+}

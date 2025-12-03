@@ -1,0 +1,32 @@
+﻿@typeparam TItem
+
+@if (Items == null || !Items.Any())
+{
+    <Warning>
+        <Content1><img src="images/doubt.png" /></Content1>
+        <Content2>
+            <span style="color:red">
+                <h3>Sem itens para exibir...</h3>
+            </span>
+        </Content2>
+    </Warning>
+}
+else
+{
+    <ul class="list-group">
+        @foreach (var item in Items)
+        {
+            <li class="list-group-item">
+                @ItemTemplate(item)
+            </li>
+        }
+    </ul>
+}
+
+@code{
+    [Parameter, EditorRequired]
+    public IEnumerable<TItem> Items { get; set; } = Enumerable.Empty<TItem>();
+
+    [Parameter, EditorRequired]
+    public RenderFragment<TItem> ItemTemplate { get; set; } = default!;
+}

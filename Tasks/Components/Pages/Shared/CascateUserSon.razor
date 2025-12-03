@@ -1,0 +1,17 @@
+﻿@using static Tasks.Components.Pages.CascateUserDad
+
+<h3>CascateUserSon</h3>
+
+@if (CurrentUser?.Authenticate == true)
+{
+    <p>Ben-vindo, @CurrentUser.Name!</p>
+}
+else
+{
+    <p>Usuário não autenticado</p>
+}
+
+@code {
+    [CascadingParameter]
+    public User? CurrentUser { get; set; }
+}

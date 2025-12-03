@@ -1,0 +1,13 @@
+﻿@page "/cascate-user-dad"
+
+<h3>CascateUserDad</h3>
+
+<CascadingValue Value="@user" TValue="User">
+    <CascateUserSon />
+</CascadingValue>
+
+@code {
+    private User user = new("João", true);
+
+    public record User(string Name, bool Authenticate);
+}

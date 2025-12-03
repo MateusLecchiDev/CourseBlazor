@@ -1,0 +1,58 @@
+﻿@page "/intelligent-counter"
+@rendermode InteractiveServer
+
+<PageTitle>Contador Inteligente</PageTitle>
+
+<h1>Conttador Inteligente com <code>ShouldRender</code></h1>
+
+<div class="alert alert-warning" style="font-size: 20px">
+    <p>O valor na tela só será atualizado quando o contador for <strong>PAR</strong></p>
+    <p>
+        Abra o <strong>Console de Saída</strong> do seu editor para ver o valor real do contador a cada clique.
+    </p>
+</div>
+
+<h2>Valor na tela: @valueOnScreen</h2>
+
+<button class="btn btn-primary" @onclick="IncrementCounter">
+    Clique Aqui
+</button>
+
+@code {
+    private int counter = 0;
+    private int valueOnScreen = 0;
+
+    // 1. O método chamado pelo botão
+    private void IncrementCounter()
+    {
+        counter++;
+        // Após este método, o Blazor automaticamente chama ShouldRender e depois atualiza a tela (se ShouldRender permitir).
+        // O console sempre será atualizado, independentemente da UI.
+        Console.WriteLine($"--> Clique! Valor interno real agora é: {counter}");
+    }
+
+    // 2. O método - ShouldRender
+    // O Blazor chama este método antes de redesenhar a tela
+    protected override bool ShouldRender()
+    {
+        // Nossa lógica de decisão: 
+        // Verificamos se o contador é um número par.
+        // O operador '%' (módulo) retorna o resto de uma divisão.
+        // Se o resto da divisão por 2 for 0, o número é par.
+        if (counter % 2 == 0)
+        {
+            // Sim, o número é par.
+            // Atualizamos a variável que é mostrada na tela.
+            valueOnScreen = counter;
+
+            // Retornar 'true' permite que o Blazor atualize a tela.
+            return true;
+        }
+        else
+        {
+            // Não, o número é ímpar.
+            // Retornar 'false' impede a atualização da tela.
+            return false;
+        }
+    }
+}

@@ -1,14 +1,44 @@
 [
   {
     "id": "f0dcda47-1f23-4538-92e0-a47dcdcc7850",
-    "descricao": "Fazer o curso de Blazor",
-    "concluida": false,
-    "datacriacao": "2025-11-11"
+    "description": "Fazer o curso de Blazor",
+    "completed": false,
+    "datecreated": "2025-11-11"
   },
   {
     "id": "d21b0f7e-a5a9-45ee-ad9b-eafd911e22fa",
-    "descricao": "Estudar Blazor",
-    "concluida": false,
-    "datacriacao": "2025-11-11"
+    "description": "Estudar Blazor",
+    "completed": false,
+    "datecreated": "2025-11-11"
+  },
+  {
+    "id": "a12b3c45-d678-4e90-b123-4567abcdef12",
+    "description": "Criar projeto de exemplo em Blazor",
+    "completed": false,
+    "datecreated": "2025-12-01"
+  },
+  {
+    "id": "b23c4d56-e789-4f01-c234-5678abcdef23",
+    "description": "Implementar componente ListaGenerica",
+    "completed": false,
+    "datacriacao": "2025-12-01"
+  },
+  {
+    "id": "c34d5e67-f890-4123-d345-6789abcdef34",
+    "description": "Testar integração com JSON",
+    "completed": true,
+    "datecreated": "2025-12-01"
+  },
+  {
+    "id": "d45e6f78-0a12-4234-e456-789abcdef456",
+    "description": "Refatorar componente Tarefas",
+    "completed": false,
+    "datecreated": "2025-12-01"
+  },
+  {
+    "id": "e56f7a89-1b23-4345-f567-89abcdef5678",
+    "description": "Adicionar persistência local com localStorage",
+    "completed": false,
+    "datecreated": "2025-12-01"
   }
 ]

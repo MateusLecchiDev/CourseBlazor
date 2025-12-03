@@ -1,0 +1,23 @@
+﻿<tr>
+    <td>
+        <button @onclick="@(() => RemoveTask(ItemTask.ID))">
+            <i class="bi bi-trash"></i>
+        </button>
+    </td>
+    <td>@ItemTask.DateCreated</td>
+    <td>@ItemTask.Description</td>
+    <td><input type="checkbox" @bind="ItemTask.Completed" />@ItemTask.Completed</td>
+</tr>
+
+@code {
+    [Parameter, EditorRequired]
+    public TaskComponent ItemTask { get; set; } = null!; // null! inicializa a propriedade com null mas "silencia" o compilador quanto a avisos de nulidade usando o operador ! (null forgiving) 
+
+    [Parameter]
+    public EventCallback<Guid> OnRemoveTask { get; set; }
+
+    private async Task RemoveTask(Guid id)
+    {
+        await OnRemoveTask.InvokeAsync(id);
+    }
+}

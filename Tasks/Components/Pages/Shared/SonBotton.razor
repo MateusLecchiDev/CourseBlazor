@@ -1,0 +1,14 @@
+﻿<button class="btn btn-warning" @onclick="NotifyDad">
+    Botão no Componente Filho
+</button>
+
+@code {
+    [Parameter]
+    public EventCallback OnClickSon { get; set; }
+
+    private Task NotifyDad()
+    {
+        // Invoca o callback fornecido pelo componente pai
+        return OnClickSon.InvokeAsync();
+    }
+}

@@ -1,0 +1,11 @@
+﻿@using static DynamicComponent // Importa a classe InfoTheme aninhada
+
+<div style="background-color: @Theme.BackgroundColor; color: @Theme.TextColor; border: 1px solid red; padding:15px;">
+    <h4>Eu sou o Painel de Controle</h4>
+    <p>O tema que recebi dinamicamente é: <strong>@Theme.Name</strong></p>
+</div>
+
+@code {
+    [CascadingParameter]
+    private InfoTheme Theme { get; set; } = new(); // É bom inicializar para evitar nulos
+}

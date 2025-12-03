@@ -3,8 +3,8 @@
     public class TaskComponent
     {
         public Guid ID { get; set; }
-        public string Descricao { get; set; } = string.Empty;
-        public bool Concluida { get; set; }
-        public DateTime DataCriacao { get; set; }
+        public string Description { get; set; } = string.Empty;
+        public bool Completed { get; set; }
+        public DateTime DateCreated { get; set; }
     }
 }

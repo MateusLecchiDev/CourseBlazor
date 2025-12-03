@@ -1,0 +1,19 @@
+﻿@page "/componente-pai"
+@rendermode InteractiveServer
+
+<button @onclick='() => ChangeParameters(1, "João")' class="btn btn-primary">ID 1, Name João</button>
+<button @onclick='() => ChangeParameters(2, "Maria")' class="btn btn-primary">ID 2, Name Maria</button>
+<button @onclick='() => ChangeParameters(0, " ")' class="btn btn-warning">IDs Inválidos</button>
+
+<SetParametersAsyncSonComponent ItemId="@currentId" Name="@currentName" />
+
+@code {
+    private int currentId = 1;
+    private string currentName = "João";
+
+    private void ChangeParameters(int newId, string newName)
+    {
+        currentId = newId;
+        currentName = newName;
+    }
+}
