@@ -1,0 +1,89 @@
+﻿@page "/form-with-validation-and-input-controls"
+@rendermode InteractiveServer
+
+<h3>Cadastro de Alunos (Validação)</h3>
+
+<EditForm Model="@student" OnValidSubmit="SendValidForm">
+    <DataAnnotationsValidator />
+
+    <div class="form-group">
+        <label for="name">Nome:</label>
+        <InputText id="name" @bind-Value="student.Name" class="form-control" />
+        <ValidationMessage For="@(() => student.Name)" />
+        <br />
+    </div>
+
+    <div class="form-group">
+        <label for="email">Email:</label>
+        <InputText id="email" @bind-Value="student.Email" class="form-control" />
+        <ValidationMessage For="@(() => student.Email)" />
+        <br />
+    </div>
+
+    <div class="form-group">
+        <label for="age">Idade:</label>
+        <InputNumber id="age" @bind-Value="student.Age" class="form-control" />
+        <ValidationMessage For="@(() => student.Age)" />
+        <br />
+    </div>
+
+    <div class="form-group">
+        <label for="gender">Gênero:</label>
+
+        @* <InputSelect id="gender" @bind-Value="student.Gender" class="form-select">
+            <option value="">Selecione...</option>
+            <option value="M">Masculino</option>
+            <option value="F">Feminino</option>
+        </InputSelect> *@
+
+        <InputRadioGroup @bind-Value="student.Gender" class="d-flex flex-column">
+            <label class="form-check">
+                <InputRadio class="form-check-input" Value="@("M")" />
+                <span class="form-check-label">Masculino</span>
+            </label>
+
+            <label class="form-check mt-1">
+                <InputRadio class="form-check-input" Value="@("F")" />
+                <span class="form-check-label">Feminino</span>
+            </label>
+        </InputRadioGroup>
+
+        @* <ValidationMessage For="@(() => student.Gender)" /> *@
+    </div>
+
+    <div class="form-group">
+        <label for="registration">Data da Matrícula:</label>
+        <InputDate id="registration" @bind-Value="student.Registration" class="form-control" />
+        <ValidationMessage For="@(() => student.Registration)" />
+    </div>
+
+    <div class="form-group">
+        <label for="mondlyPayment">Mensalidade:</label>
+        <InputNumber id="mondlyPayment" @bind-Value="student.MondlyPayment" class="form-control" />
+        <ValidationMessage For="@(() => student.MondlyPayment)" />
+    </div>
+
+    <div class="form-group">
+        <label>
+            <InputCheckbox @bind-Value="student.Active" />
+        </label>
+    </div>
+
+    <div class="mt-2">
+        <input type="submit" value="Send" class="btn btn-primary" />
+        <button type="button" class="btn btn-secondary" @onclick="ClearForm">Limpar</button>
+    </div>
+</EditForm>
+
+@code {
+    Student student = new();
+
+    private void SendValidForm(EditContext args)
+    {
+        Console.WriteLine("Formulário Válido");
+    }
+    private void ClearForm()
+    {
+        student = new();
+    }
+}

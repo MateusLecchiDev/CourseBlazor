@@ -1,0 +1,31 @@
+﻿@page "/form-no-validation"
+@rendermode InteractiveServer
+
+<h3>Cadastro de Alunos</h3>
+
+<EditForm Model="@student" OnSubmit="Send">
+    <label for="name">Nome:</label>
+    <InputText id="name" @bind-Value="student.Name" />
+    <br />
+    
+    <label for="email">Email:</label>
+    <InputText id="email" @bind-Value="student.Email" />
+    <br />
+
+    <label for="age">Idade:</label>
+    <InputNumber id="age" @bind-Value="student.Age" />
+    <br />
+    <input type="submit" value="Send" class="btn btn-primary" />
+</EditForm>
+
+@code {
+    Student student = new();
+
+    private void Send(EditContext context)
+    {
+        if (context.Validate())
+            Console.WriteLine($"{student.Name} - {student.Email} - {student.Age}");
+        else
+        Console.WriteLine("Formulário inválido");
+    }
+}
