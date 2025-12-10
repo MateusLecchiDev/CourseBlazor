@@ -1,0 +1,23 @@
+﻿@page "/new-book"
+@inherits AppComponentBase
+
+<PageTitle>Novo Livro</PageTitle>
+
+<div class="row justify-content-center">
+    <div class="col-6">
+        <BookForm EditMode="false" OnValidBookSubmit="AddBook" />
+    </div>
+</div>
+
+@code {
+    // [SupplyParameterFromForm(FormName = "NewBookForm")]]
+    // public Book Book { get; set; }
+
+    // protected override void OnInitialized() => Book ??= new Book(0, null, null, Publisher.Nenhuma, Category.Nenhuma);
+
+    private async Task AddBook(Book book)
+    {
+        await bookRepository.AddBook(book);
+        navigationManager.NavigateTo("/books");
+    }
+}

@@ -1,0 +1,98 @@
+﻿@inherits AppComponentBase
+
+@if (Book is not null)
+{
+    <EditForm Enhance="true" method="post" FormName="BookForm" OnValidSubmit="EditAddBook" Model="Book" id="EditAddBook">
+        <h3>@Header</h3>
+
+        @if (EditMode)
+        {
+            <input type="hidden" name="Book.BookId" value="@Book.BookId" />
+        }
+
+        <div class="mb-3">
+            <label for="title" class="form-label">Título</label>
+            <InputText id="title" @bind-Value="Book.Title" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label for="author" class="form-label">Autor</label>
+            <InputText id="author" @bind-Value="Book.Author" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label for="launch" class="form-label">Lancamento</label>
+            <InputDate id="launch" @bind-Value="Book.Launch" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label for="publisher" class="form-label">Editora</label>
+            <InputSelect id="publisher" @bind-Value="Book.Publisher" class="form-control">
+                <option value="0">
+                    Selecione a Editora
+                </option>
+                @foreach (var publisher in Enum.GetValues(typeof(Publisher)))
+                {
+                <option value="@publisher">
+                    @publisher.ToString()
+                </option>
+                }
+            </InputSelect>
+        </div>
+        <div class="mb-3">
+            <label for="cover" class="form-label">Capa</label>
+            <InputText id="cover" @bind-Value="Book.Cover" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label for="category" class="form-label">Categoria</label>
+            <InputSelect id="category" @bind-Value="Book.Category" class="form-control">
+                <option value="0">
+                    Selecione a Categoria
+                </option>
+                @foreach (var category in Enum.GetValues(typeof(Category)))
+                {
+                    <option value="@category">
+                        @category.ToString()
+                    </option>
+                }
+            </InputSelect>
+        </div>
+        <div>
+            <button class="btn btn-primary shadow-none">
+                Enviar
+            </button>
+            <a href="/books" class="btn btn-secondary ms-3" @* data-enhance-nav="false"*@>
+                Retornar para livros
+            </a>
+        </div>
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+</EditForm>
+}
+
+@code {
+    [Parameter]
+    public bool EditMode { get; set; }
+
+    [Parameter]
+    public int Id { get; set; }
+
+    [Parameter]
+    // Informar o componente Pai que o Form foi enviado
+    public EventCallback<Book> OnValidBookSubmit { get; set; }
+
+    [SupplyParameterFromForm(FormName = "BookForm")]
+    public Book? Book { get; set; }
+
+    private string Header => EditMode ? $"Editar Livro {Id}" : "Novo Livro";
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (EditMode)
+            Book ??= await bookRepository.GetBook(Id);
+        else
+            Book ??= new Book(0, null, null, DateTime.Now, null, Publisher.Nenhuma, Category.Nenhuma);
+    }
+
+    private async Task EditAddBook()
+    {
+        await OnValidBookSubmit.InvokeAsync(Book);
+    }
+}

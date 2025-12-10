@@ -1,0 +1,45 @@
+﻿@inherits AppComponentBase
+
+<div class="col-3 mb-3 d-flex">
+    <div class="custom-card">
+        <img src="/images/@book.Cover" class="custom-card-img" alt="Capa" />
+        <div class="card-body">
+            <h5 class="card-title">@book.Title</h5>
+            <p class="card-text">@book.Author</p>
+            <p class="card-text">@book.Publisher</p>
+            <p class="card-text">Lançamento: @book.Launch.ToShortDateString()</p>
+            <div class="d-flex justify-content-between">
+                <a href='/edit-book/@book.BookId' class="btn btn-primary btn-sm">Editar</a>
+                <button @onclick="ConfirmDialog" class="btn btn-danger btn-sm">Deletar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<DialogComponent Show="showDialog" OnCancel="CancelDelete" OnDelete="ConfirmDelete">
+    <h3 style="color:red; font-weight:bold">Confirma a exclusão deste livro: Id=@book.BookId?</h3>
+</DialogComponent>
+
+@code {
+    private bool showDialog;
+
+    [Parameter]
+    public required Book book { get; set; }
+
+    private void ConfirmDialog()
+    {
+        showDialog = true;
+    }
+
+    private void CancelDelete()
+    {
+        showDialog = false;
+    }
+
+    private async Task ConfirmDelete()
+    {
+        await bookRepository.DeleteBook(book.BookId);
+        showDialog = false;
+        navigationManager.NavigateTo("/books");
+    }
+}

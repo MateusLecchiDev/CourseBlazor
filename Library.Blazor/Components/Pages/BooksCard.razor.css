@@ -1,0 +1,10 @@
+﻿.custom-card {
+    height: 99%; /* Defina a altura desejada para o card */
+    border-radius: 8px;
+    box-shadow: 0px 1px 4px rgba(0,0,0,0.12);
+}
+
+.custom-card-img {
+    height: 250px; /* Defina a altura desejada para a imagem */
+    object-fit: cover; /* Isso ajuda a manter a proporção da imagem */
+}
