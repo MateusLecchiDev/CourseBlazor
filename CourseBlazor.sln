@@ -19,6 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.Infrastructure", "L
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.Blazor", "Library.Blazor\Library.Blazor.csproj", "{D03FD8DA-6F94-4AB5-8AAF-D1846617008A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorScaffolding", "BlazorScaffolding\BlazorScaffolding\BlazorScaffolding.csproj", "{B110517E-77AA-4DB0-B0C2-C80BCB939AB5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorScaffolding.Client", "BlazorScaffolding\BlazorScaffolding.Client\BlazorScaffolding.Client.csproj", "{7055950F-0BA5-49BB-A6E7-45441A7E1D52}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +57,14 @@ Global
 		{D03FD8DA-6F94-4AB5-8AAF-D1846617008A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D03FD8DA-6F94-4AB5-8AAF-D1846617008A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D03FD8DA-6F94-4AB5-8AAF-D1846617008A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B110517E-77AA-4DB0-B0C2-C80BCB939AB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B110517E-77AA-4DB0-B0C2-C80BCB939AB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B110517E-77AA-4DB0-B0C2-C80BCB939AB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B110517E-77AA-4DB0-B0C2-C80BCB939AB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7055950F-0BA5-49BB-A6E7-45441A7E1D52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7055950F-0BA5-49BB-A6E7-45441A7E1D52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7055950F-0BA5-49BB-A6E7-45441A7E1D52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7055950F-0BA5-49BB-A6E7-45441A7E1D52}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
