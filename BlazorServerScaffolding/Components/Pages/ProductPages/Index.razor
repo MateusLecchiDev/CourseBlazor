@@ -1,0 +1,42 @@
+﻿@page "/products"
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using BlazorServerScaffolding.Entities
+@using BlazorServerScaffolding.Data
+@implements IAsyncDisposable
+@inject IDbContextFactory<BlazorServerScaffolding.Data.BlazorServerScaffoldingContext> DbFactory
+
+<PageTitle>Index</PageTitle>
+
+<h1>Produtos</h1>
+
+<p>
+    <a href="products/create">Criar Novo</a>
+</p>
+
+@* <QuickGrid Class="table" Items="context.Product"> *@
+<QuickGrid Class="table" Items="@context.Product.Include(p => p.Category)">
+    <PropertyColumn Property="product => product.Name" Title="Nome" />
+    <PropertyColumn Property="product => product.Description" Title="Descrição" />
+    <PropertyColumn Property="product => product.ImageUrl" Title="Imagem" />
+    <PropertyColumn Property="product => product.Price" Title="Preço" />
+    <PropertyColumn Property="product => product.Category.Name" title="Nome da Categoria" />
+    @* <PropertyColumn Property="product => product.CategoryId" /> *@
+
+    <TemplateColumn Context="product">
+        <a href="@($"products/edit?id={product.Id}")">Editar</a> |
+        <a href="@($"products/details?id={product.Id}")">Detalhes</a> |
+        <a href="@($"products/delete?id={product.Id}")">Excluir</a>
+    </TemplateColumn>
+</QuickGrid>
+
+@code {
+    private BlazorServerScaffoldingContext context = default!;
+
+    protected override void OnInitialized()
+    {
+        context = DbFactory.CreateDbContext();
+    }
+
+    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+}

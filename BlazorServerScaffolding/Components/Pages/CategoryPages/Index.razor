@@ -1,0 +1,57 @@
+﻿@page "/categories"
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using BlazorServerScaffolding.Entities
+@using BlazorServerScaffolding.Data
+@implements IAsyncDisposable
+@inject IDbContextFactory<BlazorServerScaffolding.Data.BlazorServerScaffoldingContext> DbFactory
+
+<PageTitle>Index</PageTitle>
+
+<h1>Categorias</h1>
+
+<p>
+    <a href="categories/create">Criar Novo</a>
+</p>
+
+@* <QuickGrid Class="table" Items="context.Category">
+    <PropertyColumn Property="category => category.Name" />
+
+    <TemplateColumn Context="category">
+        <a href="@($"categories/edit?id={category.Id}")">Edit</a> |
+        <a href="@($"categories/details?id={category.Id}")">Details</a> |
+        <a href="@($"categories/delete?id={category.Id}")">Delete</a>
+    </TemplateColumn>
+</QuickGrid> *@
+
+<div class="card-container">
+    <div class="row">
+        @foreach (var category in context.Category)
+        {
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <p>@category.Name</p>
+
+                        <div class="card-actions">
+                            <a href="@($"categories/edit?id={category.Id}")">Editar</a> |
+                            <a href="@($"categories/details?id={category.Id}")">Detalhes</a> |
+                            <a href="@($"categories/delete?id={category.Id}")">Excluir</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    private BlazorServerScaffoldingContext context = default!;
+
+    protected override void OnInitialized()
+    {
+        context = DbFactory.CreateDbContext();
+    }
+
+    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+}
