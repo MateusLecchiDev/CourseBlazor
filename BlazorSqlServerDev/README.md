@@ -129,7 +129,6 @@ The solution provides a complete authentication system, database persistence, an
 - **SQL Server 2022** used as the database engine
 - **Entity Framework Core** configured with:
   - `ApplicationDbContext` for Identity and application entities
-  - `IDbContextFactory<ApplicationDbContext>` for safe usage inside Blazor components
 - Sample entity included:
   - `Contact` (fully implemented CRUD)
 - Database persistence guaranteed using a **Docker named volume**, preventing data loss across container restarts
@@ -150,8 +149,6 @@ Available pages:
 - Edit
 - Details
 - Delete
-
-`IDbContextFactory` is used to avoid lifetime and concurrency issues commonly found in Blazor Server applications.
 
 ---
 
@@ -242,3 +239,8 @@ The entire environment runs using **Docker Compose**.
 11. Para reiniciar os containers pausados, use:
 	```bash
     docker-compose start
+
+### Observações
+- Quando rodar pelo visual studio ele tenta rodar localmente e não via docker.
+- Se já tiver os containers criados no docker, é só rodar o comando `docker-compose start` no terminal na pasta do projeto.
+- E acessar a url http://localhost:8081 no navegador.
