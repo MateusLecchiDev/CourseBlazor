@@ -12,21 +12,21 @@
 <PageTitle>Reset authenticator key</PageTitle>
 
 <StatusMessage />
-<h3>Reset authenticator key</h3>
+<h3>Resetar chave do autenticador</h3>
 <div class="alert alert-warning" role="alert">
     <p>
         <span class="glyphicon glyphicon-warning-sign"></span>
-        <strong>If you reset your authenticator key your authenticator app will not work until you reconfigure it.</strong>
+        <strong>Se você resetar sua chave o autenticador seu app de autenticação não vai funcionar até que você reconfigure isso.</strong>
     </p>
     <p>
-        This process disables 2FA until you verify your authenticator app.
-        If you do not complete your authenticator app configuration you may lose access to your account.
+        Este processo desabilita 2FA até que você verifique seu app de autenticação.
+        Se você não completar a configuração do seu app de autenticação você pode perder o acesso a sua conta.
     </p>
 </div>
 <div>
     <form @formname="reset-authenticator" @onsubmit="OnSubmitAsync" method="post">
         <AntiforgeryToken />
-        <button class="btn btn-danger" type="submit">Reset authenticator key</button>
+        <button class="btn btn-danger" type="submit">Resetar chave do autenticador</button>
     </form>
 </div>
 

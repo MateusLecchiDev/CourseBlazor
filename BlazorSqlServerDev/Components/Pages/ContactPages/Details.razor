@@ -6,10 +6,9 @@
 
 <PageTitle>Details</PageTitle>
 
-<h1>Details</h1>
+<h1>Detalhes do contato @contact?.Name</h1>
 
 <div>
-    <h2>Contact</h2>
     <hr />
     @if (contact is null)
     {
@@ -17,14 +16,14 @@
     }
     else {
         <dl class="row">
-            <dt class="col-sm-2">Name</dt>
+            <dt class="col-sm-2">Nome</dt>
             <dd class="col-sm-10">@contact.Name</dd>
             <dt class="col-sm-2">Email</dt>
             <dd class="col-sm-10">@contact.Email</dd>
         </dl>
         <div>
-            <a href="@($"/contacts/edit?id={contact.Id}")">Edit</a> |
-            <a href="@($"/contacts")">Back to List</a>
+            <a href="@($"/contacts/edit?id={contact.Id}")">Editar</a> |
+            <a href="@($"/contacts")">Voltar para a lista de contatos</a>
         </div>
     }
 </div>

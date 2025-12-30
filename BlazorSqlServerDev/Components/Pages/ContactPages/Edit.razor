@@ -6,9 +6,8 @@
 
 <PageTitle>Edit</PageTitle>
 
-<h1>Edit</h1>
+<h1>Editar o Contato de @Contact?.Name</h1>
 
-<h2>Contact</h2>
 <hr />
 @if (Contact is null)
 {
@@ -23,7 +22,7 @@ else
                 <ValidationSummary role="alert" />
                 <input type="hidden" name="Contact.Id" value="@Contact.Id" />
                 <div class="mb-3">
-                    <label for="name" class="form-label">Name:</label>
+                    <label for="name" class="form-label">Nome:</label>
                     <InputText id="name" @bind-Value="Contact.Name" class="form-control" />
                     <ValidationMessage For="() => Contact.Name" class="text-danger" />
                 </div>
@@ -32,14 +31,14 @@ else
                     <InputText id="email" @bind-Value="Contact.Email" class="form-control" />
                     <ValidationMessage For="() => Contact.Email" class="text-danger" />
                 </div>
-                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="submit" class="btn btn-primary">Salvar</button>
             </EditForm>
         </div>
     </div>
 }
 
 <div>
-    <a href="/contacts">Back to List</a>
+    <a href="/contacts">Voltar para a lista de contatos</a>
 </div>
 
 @code {
