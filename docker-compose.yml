@@ -10,7 +10,7 @@ services:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: sqlserver-dev-db
     environment:
-      SA_PASSWORD: "1q2w3e4r@#$"
+      SA_PASSWORD: ${SA_PASSWORD}
       ACCEPT_EULA: "Y"
     ports:
       - "1433:1433"
@@ -27,6 +27,8 @@ services:
     build:
       context: BlazorSqlServerDev
       dockerfile: Dockerfile
+    environment:
+      ConnectionStrings__DefaultConnection: ${CONNECTION_STRING}
     networks:
         - blazorsqlserverdev-network
     depends_on:
